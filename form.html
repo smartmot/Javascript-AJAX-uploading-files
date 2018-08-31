@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Upload</title>
+</head>
+<body>
+<div class="cw">
+    <div>
+        <form id="form-upload" action="" method="post" enctype="multipart/form-data">
+            <input type="file" name="fileupload">
+            <div>
+                <button type="submit">Upload</button>
+            </div>
+        </form>
+        <div>
+            <div>
+                Status : <span id="status"></span>
+            </div>
+            <div id="doneStatus"></div>
+        </div>
+    </div>
+</div>
+<script>
+    function upload(data,functionList) {
+        var xr = new XMLHttpRequest();
+        xr.onreadystatechange = function () {
+            if (this.readyState == 4){
+                functionList.done(this.response);
+            }
+        };
+        xr.upload.onprogress = function (pEvent) {
+            functionList.uploading(pEvent);
+        };
+        xr.open("POST", "upload.php");
+        xr.send(data);
+    }
+    var form = document.getElementById("form-upload");
+    form.onsubmit = function (event) {
+        event.preventDefault();
+        var data = new FormData(this);
+        upload(data,{
+            done:function (d) {
+alert(d);
+                document.getElementById("doneStatus").innerHTML = "Upload Completed";
+            },
+            uploading:function (status) {
+                var personUpload = (status.loaded/status.total)*100;
+                document.getElementById("status").innerHTML = personUpload.toFixed(0) + "%";
+            }
+        });
+    }
+</script>
+</body>
+</html>
