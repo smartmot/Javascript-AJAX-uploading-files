@@ -45,7 +45,7 @@
         upload(data,{
             done:function (d) {
 alert(d);
-                document.getElementById("doneStatus").innerHTML = "Upload Completed";
+                document.getElementById("doneStatus").innerHTML = "Upload 100% Completed";
             },
             uploading:function (status) {
                 var personUpload = (status.loaded/status.total)*100;
