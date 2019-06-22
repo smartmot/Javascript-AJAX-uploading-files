@@ -7,6 +7,6 @@ function upload($input_name, $folder, $new_filename){
             return move_uploaded_file($_FILES[$input_name]["tmp_name"], $new_file);
         }
         if (isset($_FILES["fileupload"])){
-            upload("fileupload", "uploaded/", "new_file_name");
+            upload("fileupload", "uploaded/", "new_file_name_is");
         }
 ?>
